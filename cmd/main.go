@@ -1,8 +1,8 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
 	config "github.com/Sen-Com/inter-chain-arbitrage-bot/pkg/config"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {

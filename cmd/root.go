@@ -5,6 +5,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"os"
 	"path/filepath"
 )
 
@@ -41,13 +42,13 @@ func init() {
 
 // Load the configuration and set the environment variables
 func initConfig() {
-	// Set config path to 'configs' dir
+	// Set config path
 	viper.AddConfigPath(filepath.Join(".", "configs"))
 
-	// Set config type to 'yaml'
+	// Set config type
 	viper.SetConfigType("yaml")
 
-	// Set config name to
+	// Set config name
 	viper.SetConfigName(viper.GetString("config"))
 
 	// Load environment variables
@@ -55,8 +56,8 @@ func initConfig() {
 
 	// Read config
 	if err := viper.ReadInConfig(); err != nil {
-		//TODO Log error and exit
-		fmt.Println("no config")
+		fmt.Println("No config", viper.GetString("config"), "found.")
+		os.Exit(2)
 	}
 }
 
@@ -68,6 +69,8 @@ func initLogger() {
 		log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
 	case "json":
 		log.SetFormatter(&log.JSONFormatter{PrettyPrint: true})
+	default: // text
+		log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
 	}
 
 	// Activate/ Deactivate function specific reporting
@@ -90,5 +93,7 @@ func initLogger() {
 		log.SetLevel(log.FatalLevel)
 	case "panic":
 		log.SetLevel(log.PanicLevel)
+	default: // info
+		log.SetLevel(log.InfoLevel)
 	}
 }

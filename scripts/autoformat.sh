@@ -1,2 +1,2 @@
-go fmt module github.com/Sen-Com/inter-chain-arbitrage-bot
+go fmt github.com/Sen-Com/inter-chain-arbitrage-bot/...
 

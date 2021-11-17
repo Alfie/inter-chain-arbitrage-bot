@@ -1,0 +1,7 @@
+---
+
+# Logging
+format: "json"
+functionTracing: True
+logLevel: "trace"
+

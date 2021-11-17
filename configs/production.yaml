@@ -1,0 +1,7 @@
+---
+
+# Logging
+format: "text"
+functionTracing: False
+logLevel: "info"
+

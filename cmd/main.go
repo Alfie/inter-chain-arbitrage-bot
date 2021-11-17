@@ -1,7 +1,7 @@
 package main
 
 import (
-	config "github.com/Sen-Com/inter-chain-arbitrage-bot/pkg/config"
+	config "github.com/Sen-Com/inter-chain-arbitrage-bot/internal/config"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -11,10 +11,10 @@ func main() {
 	config.Environment = "development"
 	config.LogLevel = "trace"
 
-	init_logger()
+	initLogger()
 }
 
-func init_logger() {
+func initLogger() {
 	// Set logging format to json
 	log.SetFormatter(&log.JSONFormatter{})
 

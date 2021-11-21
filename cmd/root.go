@@ -1,11 +1,9 @@
 package cmd
 
 import (
-	"fmt"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
 	"path/filepath"
 )
 
@@ -56,8 +54,7 @@ func initConfig() {
 
 	// Read config
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("No config", viper.GetString("config"), "found.")
-		os.Exit(2)
+		logrus.Fatal("No configuration file with the name '", viper.GetString("config"), "' found.")
 	}
 }
 
@@ -66,34 +63,34 @@ func initLogger() {
 	// Set the logging format
 	switch viper.GetString("format") {
 	case "text":
-		log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
+		logrus.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
 	case "json":
-		log.SetFormatter(&log.JSONFormatter{PrettyPrint: true})
+		logrus.SetFormatter(&logrus.JSONFormatter{PrettyPrint: true})
 	default: // text
-		log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
+		logrus.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
 	}
 
 	// Activate/ Deactivate function specific reporting
 	// Adds significant overhead if activated
-	log.SetReportCaller(viper.GetBool("functionTracing"))
+	logrus.SetReportCaller(viper.GetBool("functionTracing"))
 
 	// Set the logging level
 	switch viper.GetString("logLevel") {
 	case "trace":
-		log.SetLevel(log.TraceLevel)
+		logrus.SetLevel(logrus.TraceLevel)
 	case "debug":
-		log.SetLevel(log.DebugLevel)
+		logrus.SetLevel(logrus.DebugLevel)
 	case "info":
-		log.SetLevel(log.InfoLevel)
+		logrus.SetLevel(logrus.InfoLevel)
 	case "warn":
-		log.SetLevel(log.WarnLevel)
+		logrus.SetLevel(logrus.WarnLevel)
 	case "error":
-		log.SetLevel(log.ErrorLevel)
+		logrus.SetLevel(logrus.ErrorLevel)
 	case "fatal":
-		log.SetLevel(log.FatalLevel)
+		logrus.SetLevel(logrus.FatalLevel)
 	case "panic":
-		log.SetLevel(log.PanicLevel)
+		logrus.SetLevel(logrus.PanicLevel)
 	default: // info
-		log.SetLevel(log.InfoLevel)
+		logrus.SetLevel(logrus.InfoLevel)
 	}
 }
